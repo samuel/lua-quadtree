@@ -1,49 +1,8 @@
+
 --[[
-
-QuadTree module
-
-Copyright (C) 2008  Samuel Stauffer <samuel@descolada.com>
-See LICENSE and COPYING for license details.
-
-
-
-QuadTree.new(left, top, width, height)
-  Creates and returns a new instance of the QuadTree class with
-  the given position and size.
-
-QuadTree:subdivide()
-  Subdivides (splits) the QuadTree into four sub QuadTrees
-
-QuadTree:addObject(object)
-  Adds an object to the QuadTree
-
-QuadTree:removeObject(object, usePrevious)
-  Removes an object from the QuadTree with an option to use the previous
-  coordinates of the object.
-
-QuadTree:removeAllObjects()
-  Removes all the objects from the QuadTree
-
-QuadTree:updateObject(object)
-  Updates an object that's already in the QuadTree, moving
-  it from its previous location to its current location.
-
-QuadTree:getCollidableObjects(object, moving)
-  Returns a table of all objects near the given object
-
-
-The objects used by the QuadTree must support the following properties:
-
-  object.x      - current X coordinate
-  object.y      - current Y coordinate
-  object.width  - width of object
-  object.height - height of object
-  object.prev_x - previous X coordinate
-  object.prev_y - previous Y coordinate
-
+    Copyright (C) 2008  Samuel Stauffer <samuel@descolada.com>
+    See LICENSE and COPYING for license details.
 ]]
-
-
 
 local print, pairs, assert, setmetatable = print, pairs, assert, setmetatable
 local math, table = math, table
@@ -92,10 +51,10 @@ function QuadTree:subdivide()
 end
 
 function QuadTree:check(object, func, x, y)
-    local oleft   = x or object:getX()
-    local otop    = y or object:getY()
-    local oright  = oleft + object:getWidth() - 1
-    local obottom = otop + object:getHeight() - 1
+    local oleft   = x or object.x
+    local otop    = y or object.y
+    local oright  = oleft + object.width - 1
+    local obottom = otop + object.height - 1
 
     for i,child in pairs(self.children) do
         local left   = child.left
@@ -177,97 +136,3 @@ function QuadTree:getCollidableObjects(object, moving)
 end
 
 QuadTree_mt.__index = QuadTree
-
----------------------------------------------------------
---------------------- QuadTree Test ---------------------
----------------------------------------------------------
-
---[[
-    quadtree = QuadTree.new(0, 0, 1000, 1000)
-    quadtree:subdivide()
-
-    -- Add object to (0,0)
-    obj1 = {
-                name   = "obj1",
-                x      = 10,
-                y      = 10,
-                prev_x = 10,
-                prev_y = 10,
-                width  = 50,
-                height = 50
-            }
-    quadtree:addObject(obj1)
-
-    -- Add object to (0,0)
-    obj2 = {
-                name   = "obj2",
-                x      = 100,
-                y      = 10,
-                prev_x = 100,
-                prev_y = 10,
-                width  = 50,
-                height = 50
-            }
-    quadtree:addObject(obj2)
-
-    -- Add object to (0,0) + (1,0)
-    obj3 = {
-                name   = "obj3",
-                x      = 100,
-                y      = 10,
-                prev_x = 100,
-                prev_y = 10,
-                width  = 700,
-                height = 50
-            }
-    quadtree:addObject(obj3)
-
-    -- Add object to (1,0)
-    obj4 = {
-                name   = "obj4",
-                x      = 700,
-                y      = 10,
-                prev_x = 700,
-                prev_y = 10,
-                width  = 50,
-                height = 50
-            }
-    quadtree:addObject(obj4)
-
-    print("Should be objects 2,3")
-    near = quadtree:getCollidableObjects(obj1, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be objects 1,3")
-    near = quadtree:getCollidableObjects(obj2, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be objects 1,2,4")
-    near = quadtree:getCollidableObjects(obj3, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be object 3")
-    near = quadtree:getCollidableObjects(obj4, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    -- Move obj1 to (1,0)
-    obj1.prev_x, obj1.prev_y = obj1.x, obj1.y
-    obj1.x     , obj1.y      = 900   , 200
-    quadtree:updateObject(obj1)
-
-    print("Should be objects 3,4")
-    near = quadtree:getCollidableObjects(obj1, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be object 3")
-    near = quadtree:getCollidableObjects(obj2, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be objects 1,2,4")
-    near = quadtree:getCollidableObjects(obj3, false)
-    for i,j in pairs(near) do print(j.name) end
-
-    print("Should be object 1,3")
-    near = quadtree:getCollidableObjects(obj4, false)
-    for i,j in pairs(near) do print(j.name) end
-]]
