@@ -17,28 +17,28 @@ API Documentation
 =================
 
 QuadTree.new(left, top, width, height)
-  Creates and returns a new instance of the QuadTree class with
+  Create and return a new instance of the QuadTree class with
   the given position and size.
 
 QuadTree:subdivide()
-  Subdivides (splits) the QuadTree into four sub QuadTrees
+  Subdivide (split) the QuadTree into four sub QuadTrees
 
 QuadTree:addObject(object)
-  Adds an object to the QuadTree
+  Add an object to the QuadTree
 
 QuadTree:removeObject(object, usePrevious)
-  Removes an object from the QuadTree with an option to use the previous
+  Remove an object from the QuadTree with an option to use the previous
   coordinates of the object.
 
 QuadTree:removeAllObjects()
-  Removes all the objects from the QuadTree
+  Remove all the objects from the QuadTree
 
 QuadTree:updateObject(object)
   Updates an object that's already in the QuadTree, moving
   it from its previous location to its current location.
 
 QuadTree:getCollidableObjects(object, moving)
-  Returns a table of all objects near the given object
+  Return a table of all objects near the given object
 
 The objects used by the QuadTree must support the following properties:
 
