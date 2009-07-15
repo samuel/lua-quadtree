@@ -5,30 +5,33 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>samuel/lua-quadtree @ GitHub</title>
+	<title>Quadtree library for Lua</title>
 	
 	<style type="text/css">
 		body {
   		margin-top: 1.0em;
-  		background-color: #2e4157;
+  		background-color: #fff;
 		  font-family: "helvetica"; 
-  		color: #ffffff;
+  		color: #000;
     }
     #container {
       margin: 0 auto;
       width: 700px;
     }
-		h1 { font-size: 3.8em; color: #d1bea8; margin-bottom: 3px; }
+		h1 { font-size: 3.8em; color: #000; margin-bottom: 3px; }
 		h1 .small { font-size: 0.4em; }
 		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #d1bea8; }
-    h3 { text-align: center; color: #d1bea8; }
-    a { color: #d1bea8; }
+		h2 { font-size: 1.5em; color: #000; }
+    h3 { text-align: center; color: #000; }
+    a { color: #008; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa }
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+	dt { font-weight:bold; }
+	dd { margin-bottom:8px; }
+	ul.no-style { list-style-type:none; }
 	</style>
 	
 </head>
@@ -53,9 +56,41 @@
     </div>
 
     <h2>Authors</h2>
-<p>Samuel Stauffer (samuel@descolada.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Samuel Stauffer (samuel@descolada.com)<br/>      </p>
+	<p>Samuel Stauffer (samuel@descolada.com)</p>
+
+	<h2>License</h2>
+	<p>GPLv2</p>
+
+	<h2>Documentation</h2>
+	<div class="section">
+		<dt>QuadTree.new(left, top, width, height)</dt>
+		<dd>Creates and returns a new instance of the QuadTree class with
+		the given position and size.</dd>
+		<dt>QuadTree:subdivide()</dt>
+		<dd>Subdivides (splits) the QuadTree into four sub QuadTrees</dd>
+		<dt>QuadTree:addObject(object)</dt>
+		<dd>Adds an object to the QuadTree</dd>
+		<dt>QuadTree:removeObject(object, usePrevious)</dt>
+		<dd>Removes an object from the QuadTree with an option to use the previous
+		coordinates of the object.</dd>
+		<dt>QuadTree:removeAllObjects()</dt>
+		<dd>Removes all the objects from the QuadTree</dd>
+		<dt>QuadTree:updateObject(object)</dt>
+		<dd>Updates an object that's already in the QuadTree, moving
+		it from its previous location to its current location.</dd>
+		<dt>QuadTree:getCollidableObjects(object, moving)</dt>
+		<dd>Returns a table of all objects near the given object</dd>
+
+		<p>The objects used by the QuadTree must support the following properties:</p>
+		<ul class="no-style">
+		<li>object.x      - current X coordinate</li>
+		<li>object.y      - current Y coordinate</li>
+		<li>object.prev_x - previous X coordinate</li>
+		<li>object.prev_y - previous Y coordinate</li>
+		<li>object.width  - width of object</li>
+		<li>object.height - height of object</li>
+		</ul>
+	</div>
 
 
     <h2>Download</h2>
