@@ -7,14 +7,13 @@
 local print, pairs, assert, setmetatable = print, pairs, assert, setmetatable
 local math, table = math, table
 
-module("quadtree")
 
 ------------------------------------------------------------
 ---------------------- QuadTree class ----------------------
 ------------------------------------------------------------
 
-QuadTree = {}
-QuadTree_mt = {}
+local QuadTree = {}
+local QuadTree_mt = {}
 
 function QuadTree.new(_left, _top, _width, _height)
     return setmetatable(
@@ -136,3 +135,4 @@ function QuadTree:getCollidableObjects(object, moving)
 end
 
 QuadTree_mt.__index = QuadTree
+return QuadTree
