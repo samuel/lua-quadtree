@@ -3,9 +3,9 @@
 --------------------- QuadTree Test ---------------------
 ---------------------------------------------------------
 
-require("quadtree")
 
-local QuadTree = quadtree.QuadTree
+
+local QuadTree = require("quadtree")
 
 quadtree = QuadTree.new(0, 0, 1000, 1000)
 quadtree:subdivide()
